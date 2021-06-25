@@ -1,0 +1,19 @@
+- 1.0.0
+	- Initial Release
+- 1.1.0
+	- Added several new enumeration features
+		- Phone Numbers
+		- Group Count
+		- Last Logon
+	- Added several filters
+		- Schema Admins
+		- Enterprise Admins
+	- Added --sort and --sort-function
+		- Currently sorts in reverse order, will be lambda 
+	- Enumerate all content is now functioning. It currently enumerates **most** of everything into a folder, including...
+		- sAMAccountNames
+		- Descriptions
+		- userPrincipalNames
+		- Preceived Passwords
+		- Phone Numbers
+		- Last Logon
