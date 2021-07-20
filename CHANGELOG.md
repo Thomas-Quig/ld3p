@@ -1,19 +1,52 @@
-- 1.0.0
-	- Initial Release
-- 1.1.0
-	- Added several new enumeration features
-		- Phone Numbers
-		- Group Count
-		- Last Logon
-	- Added several filters
-		- Schema Admins
-		- Enterprise Admins
-	- Added --sort and --sort-function
-		- Currently sorts in reverse order, will be lambda 
-	- Enumerate all content is now functioning. It currently enumerates **most** of everything into a folder, including...
-		- sAMAccountNames
-		- Descriptions
-		- userPrincipalNames
-		- Preceived Passwords
-		- Phone Numbers
-		- Last Logon
+# 1.2.0
+*There is alot of content here, I honestly wanted to skip a bunch of versions, but I suspect this will continue having work done so.*
+- ### **Dumpsec Support**
+	- Added parsing support for dumpsec. Currently, file formats of .txt, .text, .xls, and .xlsx
+	- Full Excel and Text (Tab delimited) support.
+	- Translates DumpSec output back into relevant AD attributes.
+	- Can use the filters that previously exist in ld3p
+	- Parses groups so that identical user entries with different groups are merged under the same user with a group list.
+	- Added *-np, --no-parse* which will take in the dumpsec data raw and ignore any parsing done on it (mapping to AD values).
+		- This will also ignore the dumpsec ignore list, which has paramaters deemed not neccesary, this list can be changed or removed entirely.
+- ### New / Modified Filters
+	- *-aa --any-admin* : Will filter if the term 'admin' is in any of the groups. Useful with -grl
+	- *-lo --locked-out* : Will filter by users who are locked out of their accounts.
+	- *-cF --custom-filter* : Filters by splitting the argument "VAR=VAL" looks for all users where VAR == VAL
+	- #### Modified Filters
+		- *-eu --enabled-users*, *-pe --password-expires*, and *-lo --locked-out* are now based on the next paramater
+			- The paramater can be any of (0/1 f/t false/true no/yes n/y)
+- ### New / Modified Attributes
+	- *-nam* : Returns the `name` attribute of the user
+	- *-pls --password-last-set* : Gets when the password is last set
+	- *-grl --group-list* : Returns a list of the names of groups that you are in
+	- *-cA --custom-attribute* : Returns the string value of a custom attribute
+- ### Other New / Modified Paramaters
+	- Renamed *--output-file* and *--load-path* to *--output-path* and *--input_path* (respectively)
+	- Split *--data-format* into *--input-format* and *--output-format* (self-explainatory)
+	- Added *--debug* for those running custom code
+	- Added *--dump-loaded* to dump the loaded file, this can be used to translate DumpSec into json similar to ldapdomaindump.py
+- ### Refactoring
+	- Rewrote several filters to be slightly shorter and cleaner.
+		- Cleaned up Memberof filters
+		- Used the bitwise and instead of using specific values for useraccontcontrol
+- ### Misc
+	- Added compatibility metrics in filters / attributes. `[U,C,G,A]` etc
+# 1.1.0
+- Added several new enumeration features
+	- Phone Numbers
+	- Group Count
+	- Last Logon
+- Added several filters
+	- Schema Admins
+	- Enterprise Admins
+- Added --sort and --sort-function
+	- Currently sorts in reverse order, will be lambda 
+- Enumerate all content is now functioning. It currently enumerates **most** of everything into a folder, including...
+	- sAMAccountNames
+	- Descriptions
+	- userPrincipalNames
+	- Preceived Passwords
+	- Phone Numbers
+	- Last Logon
+# 1.0.0
+- Initial Release
